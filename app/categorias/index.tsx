@@ -1,14 +1,14 @@
 import React from 'react';
-import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
-import { Link } from 'expo-router'; // Importando o Link para navegação
-import { data } from '../../data'; // Arquivo de dados
+import { View, Text, Image, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';
+import { data } from '../../data';
 import { Category } from '../../types/category';
 import { Product } from '../../types/product';
 
 export default function Categories() {
-  // Renderiza a categoria e seus produtos
+  const router = useRouter();
+
   const renderCategory = ({ item }: { item: Category }) => {
-    // Filtrando os produtos pela categoria
     const filteredProducts = data.products.filter(
       (product: Product) => product.idCategory === item.id
     );
@@ -18,12 +18,25 @@ export default function Categories() {
         <Image source={{ uri: item.cover }} style={styles.cover} />
         <Text style={styles.title}>{item.title}</Text>
 
-        {/* Link para a página de produtos da categoria */}
-        <Link href={`/categorias/[id]`.replace('[id]', item.id.toString())} style={styles.link}>
-          Ver produtos
-        </Link>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => router.push('/categorias/eletro')}
+        >
+          <Text style={styles.buttonText}>Ver os produtos</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => router.push('/categorias/paisagismo')}
+        >
+          <Text style={styles.buttonText}>Ver Paisagismo</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => router.push('/categorias/acessorios')}
+        >
+          <Text style={styles.buttonText}>Ver Acessórios</Text>
+        </TouchableOpacity>
 
-        {/* Exibindo produtos relacionados à categoria */}
         <FlatList
           data={filteredProducts}
           renderItem={({ item: product }) => (
@@ -43,7 +56,7 @@ export default function Categories() {
   return (
     <View style={styles.container}>
       <FlatList
-        data={data.categories} // Usando as categorias definidas nos dados
+        data={data.categories}
         renderItem={renderCategory}
         keyExtractor={(item) => item.id.toString()}
       />
@@ -55,13 +68,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 20,
-    backgroundColor: '#fff',
+    backgroundColor: '#F5F5F5',
   },
   card: {
     marginBottom: 20,
     alignItems: 'center',
     padding: 10,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#FFFFFF',
     borderRadius: 8,
     elevation: 5,
   },
@@ -75,11 +88,20 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
+    color: '#333333', 
   },
-  link: {
+  button: {
     marginTop: 10,
-    color: '#007BFF',
-    textDecorationLine: 'underline',
+    backgroundColor: '#FF5733',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   productContainer: {
     width: 120,
@@ -95,10 +117,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     textAlign: 'center',
+    color: '#333333',
   },
   productPrice: {
     fontSize: 12,
-    color: '#007BFF',
+    color: '#33C1FF',
     marginTop: 5,
     textAlign: 'center',
   },

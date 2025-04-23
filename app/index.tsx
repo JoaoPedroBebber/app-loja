@@ -11,7 +11,7 @@ export default function Home() {
         Explore as categorias e descubra produtos incríveis!
       </Text>
 
-      {/* Botões de navegação para as categorias */}
+      {}
       <TouchableOpacity
         style={styles.botao}
         onPress={() => router.push('/categorias')}

@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Image } from 'react-native';
 
-// Aqui, o caminho da imagem é relativo à pasta do projeto
-import minhaFoto from '../assets/images/foto-pessoal.jpeg'; // Ajuste o nome da imagem conforme necessário
+
+import minhaFoto from '../assets/images/foto-pessoal.jpeg';
 
 export default function Sobre() {
   return (
